@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewFlipper
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/viewFlipper"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1a1a2e">
+
+    <!-- ======================================================= -->
+    <!-- Screen 0: Waiting / Connecting                          -->
+    <!-- ======================================================= -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🎨"
+            android:textSize="64sp"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Picturnary"
+            android:textColor="#e94560"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Draw it. Guess it. Win it."
+            android:textColor="#aaaaaa"
+            android:textSize="16sp"
+            android:layout_marginBottom="40dp" />
+
+        <ProgressBar
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
+            android:indeterminateTint="#e94560" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Connecting to server..."
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <!-- ======================================================= -->
+    <!-- Screen 1: Drawing (I am the drawer)                     -->
+    <!-- ======================================================= -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!-- Header row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="4dp">
+
+            <TextView
+                android:id="@+id/tvDrawRound"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Round 1 / 6"
+                android:textColor="#16c79a"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDrawTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⏱️ 60"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Opponent + Score row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="6dp">
+
+            <TextView
+                android:id="@+id/tvDrawOpponent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="vs The Wobbly Noodles"
+                android:textColor="#e94560"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvDrawScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Score: 0 - 0"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Word to draw -->
+        <TextView
+            android:id="@+id/tvDrawWord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Draw: 🎨 ELEPHANT"
+            android:textColor="#ffffff"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:background="@drawable/word_badge_bg"
+            android:padding="10dp"
+            android:layout_marginBottom="4dp" />
+
+        <!-- Guesser's attempts (visible to drawer) -->
+        <TextView
+            android:id="@+id/tvGuessAttempt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#aaaaaa"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:layout_marginBottom="4dp" />
+
+        <!-- Drawing canvas -->
+        <com.picturnary.game.DrawingView
+            android:id="@+id/drawingView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/canvas_bg" />
+
+        <!-- Color palette + clear -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="8dp">
+
+            <Button
+                android:id="@+id/btnColorBlack"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:text="⚫"
+                android:textSize="18sp"
+                android:backgroundTint="#333333"
+                android:layout_marginEnd="4dp" />
+
+            <Button
+                android:id="@+id/btnColorRed"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:text="🔴"
+                android:textSize="18sp"
+                android:backgroundTint="#cc2200"
+                android:layout_marginEnd="4dp" />
+
+            <Button
+                android:id="@+id/btnColorBlue"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:text="🔵"
+                android:textSize="18sp"
+                android:backgroundTint="#0044cc"
+                android:layout_marginEnd="4dp" />
+
+            <Button
+                android:id="@+id/btnColorGreen"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:text="🟢"
+                android:textSize="18sp"
+                android:backgroundTint="#16c79a"
+                android:layout_marginEnd="4dp" />
+
+            <Button
+                android:id="@+id/btnColorOrange"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:text="🟠"
+                android:textSize="18sp"
+                android:backgroundTint="#ff8c00"
+                android:layout_marginEnd="4dp" />
+
+            <Button
+                android:id="@+id/btnClear"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:text="🗑️"
+                android:textSize="18sp"
+                android:backgroundTint="#533483" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ======================================================= -->
+    <!-- Screen 2: Guessing (I am the guesser)                   -->
+    <!-- ======================================================= -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!-- Header row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="4dp">
+
+            <TextView
+                android:id="@+id/tvGuessRound"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Round 1 / 6"
+                android:textColor="#16c79a"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvGuessTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⏱️ 60"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Opponent + Score row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="6dp">
+
+            <TextView
+                android:id="@+id/tvGuessOpponent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="vs The Wobbly Noodles"
+                android:textColor="#e94560"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvGuessScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Score: 0 - 0"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Prompt -->
+        <TextView
+            android:id="@+id/tvGuessPrompt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="What are they drawing?"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="6dp" />
+
+        <!-- Viewing canvas (view-only) -->
+        <com.picturnary.game.DrawingView
+            android:id="@+id/guessingView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/canvas_bg" />
+
+        <!-- Wrong guess feedback -->
+        <TextView
+            android:id="@+id/tvWrongGuess"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#e94560"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:layout_marginTop="4dp" />
+
+        <!-- Guess input row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="6dp">
+
+            <EditText
+                android:id="@+id/etGuess"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Type your guess..."
+                android:textColor="#ffffff"
+                android:textColorHint="#888888"
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                android:background="@drawable/guess_input_bg"
+                android:padding="12dp"
+                android:textSize="16sp"
+                android:layout_marginEnd="8dp"
+                android:maxLines="1" />
+
+            <Button
+                android:id="@+id/btnSubmitGuess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GUESS!"
+                android:textSize="15sp"
+                android:textColor="#ffffff"
+                android:backgroundTint="#e94560"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ======================================================= -->
+    <!-- Screen 3: Round Result                                  -->
+    <!-- ======================================================= -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp">
+
+        <TextView
+            android:id="@+id/tvResultRound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Round 1 / 6"
+            android:textColor="#16c79a"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tvResultOutcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Correct guess! 🎉"
+            android:textColor="#ffffff"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="20dp" />
+
+        <TextView
+            android:id="@+id/tvResultWord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="The word was: ELEPHANT"
+            android:textColor="#cccccc"
+            android:textSize="22sp"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:id="@+id/tvResultScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Score: 1 - 0"
+            android:textColor="#ffffff"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="32dp" />
+
+        <TextView
+            android:id="@+id/tvResultNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next round starting..."
+            android:textColor="#aaaaaa"
+            android:textSize="15sp"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <!-- ======================================================= -->
+    <!-- Screen 4: Game Over                                     -->
+    <!-- ======================================================= -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🎨"
+            android:textSize="64sp"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tvGameOverTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You Win! 🏆"
+            android:textColor="#ffffff"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:id="@+id/tvGameOverScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Final Score: 3 - 1"
+            android:textColor="#16c79a"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="48dp" />
+
+        <Button
+            android:id="@+id/btnPlayAgain"
+            android:layout_width="220dp"
+            android:layout_height="64dp"
+            android:text="Play Again 🔄"
+            android:textSize="20sp"
+            android:textColor="#ffffff"
+            android:backgroundTint="#e94560" />
+    </LinearLayout>
+
+</ViewFlipper>
