@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         bindViews()
         observeViewModel()
-        viewModel.connectToServer("http://192.168.1.233:5000")
+        viewModel.connectToServer("https://web-production-dfd6c.up.railway.app")
     }
 
     private fun bindViews() {
