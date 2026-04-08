@@ -348,6 +348,7 @@ def on_submit_guess(data):
 
 
 if __name__ == '__main__':
-    print("Starting Picturnary Server on port 5000...")
-    print("Make sure both phones are on the same Wi-Fi network!")
-    socketio.run(app, host='0.0.0.0', port=5000, debug=False)
+    import os
+    port = int(os.environ.get('PORT', 5000))
+    print(f"Starting Picturnary Server on port {port}...")
+    socketio.run(app, host='0.0.0.0', port=port, debug=False)
